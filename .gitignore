@@ -1,0 +1,75 @@
+# ── OS ────────────────────────────────────────────────────────────────
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*.swo
+*~
+
+# ── IDE ───────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+.vs/
+*.suo
+*.user
+
+# ── Environment & Secrets ─────────────────────────────────────────────
+.env
+.env.local
+.env.production
+.env.*
+!.env.example
+!.env.railway
+*.pem
+*.key
+*.pfx
+
+# ── Python Backend ────────────────────────────────────────────────────
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+venv/
+.venv/
+env/
+
+# ── Agent build artefacts ─────────────────────────────────────────────
+agent/build/
+agent/dist/
+agent/**/__pycache__/
+agent/**/*.pyc
+agent/.spec.lock
+agent/**/bin/
+agent/**/obj/
+agent/**/*.exe
+agent/**/*.dll
+agent/**/*.pdb
+agent/**/publish/
+
+# ── Build outputs ─────────────────────────────────────────────────────
+dist/
+build/
+
+# ── Docker ────────────────────────────────────────────────────────────
+docker-compose.override.yml
+
+# ── Data & Logs ───────────────────────────────────────────────────────
+*.db
+*.sqlite
+*.log
+logs/
+backend/screenshots_store/
+backend/trackme*.db*
+backend/uvicorn_err.log
+backend/reports_output/
+backend/backend_task.xml
+
+# ── Misc ──────────────────────────────────────────────────────────────
+*.bak
+.claude/

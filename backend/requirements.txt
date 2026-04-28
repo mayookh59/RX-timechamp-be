@@ -1,0 +1,54 @@
+# TrackMe Backend Dependencies
+# Phase 1 - Foundation
+
+# Web framework
+fastapi>=0.110.0
+uvicorn[standard]
+
+# Database
+sqlalchemy[asyncio]>=2.0
+asyncpg
+aiosqlite
+alembic
+
+# Authentication
+python-jose[cryptography]
+passlib[bcrypt]
+
+# Validation & Settings
+pydantic>=2.0
+pydantic-settings
+email-validator
+
+# Logging
+structlog
+
+# File uploads
+python-multipart
+
+# AWS S3 storage
+boto3
+
+# Cache & Task queue
+redis
+celery
+
+# Circuit breaker
+pybreaker
+
+# System metrics
+psutil
+
+# HTTP client
+httpx
+
+# Prometheus metrics (Phase 11)
+prometheus-client
+
+# Testing
+pytest
+pytest-asyncio
+pytest-cov
+
+# Load testing
+locust

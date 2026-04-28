@@ -1,0 +1,7 @@
+.env
+trackme_test.db
+screenshots_store/
+reports_output/
+__pycache__/
+*.pyc
+.pytest_cache/
