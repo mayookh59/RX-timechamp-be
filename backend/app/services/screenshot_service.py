@@ -98,10 +98,10 @@ async def list_screenshots(
         base_stmt = base_stmt.where(Screenshot.user_id == user_id)
 
     if start_date is not None:
-        base_stmt = base_stmt.where(func.date(Screenshot.captured_at) >= start_date.isoformat())
+        base_stmt = base_stmt.where(func.date(Screenshot.captured_at) >= start_date)
 
     if end_date is not None:
-        base_stmt = base_stmt.where(func.date(Screenshot.captured_at) <= end_date.isoformat())
+        base_stmt = base_stmt.where(func.date(Screenshot.captured_at) <= end_date)
 
     if device_id is not None:
         base_stmt = base_stmt.where(Screenshot.device_id == device_id)

@@ -92,10 +92,10 @@ def _apply_filters(
         stmt = stmt.where(AppUsage.user_id == user_id)
 
     if start_date is not None:
-        stmt = stmt.where(func.date(AppUsage.start_time) >= start_date.isoformat())
+        stmt = stmt.where(func.date(AppUsage.start_time) >= start_date)
 
     if end_date is not None:
-        stmt = stmt.where(func.date(AppUsage.start_time) <= end_date.isoformat())
+        stmt = stmt.where(func.date(AppUsage.start_time) <= end_date)
 
     if device_id is not None:
         stmt = stmt.where(AppUsage.device_id == device_id)

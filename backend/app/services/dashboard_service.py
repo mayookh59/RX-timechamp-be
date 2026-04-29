@@ -104,11 +104,11 @@ async def get_overview(
     )
 
     if start_date is not None:
-        active_stmt = active_stmt.where(func.date(ActivitySession.start_time) >= start_date.isoformat())
-        idle_stmt = idle_stmt.where(func.date(ActivitySession.start_time) >= start_date.isoformat())
+        active_stmt = active_stmt.where(func.date(ActivitySession.start_time) >= start_date)
+        idle_stmt = idle_stmt.where(func.date(ActivitySession.start_time) >= start_date)
     if end_date is not None:
-        active_stmt = active_stmt.where(func.date(ActivitySession.start_time) <= end_date.isoformat())
-        idle_stmt = idle_stmt.where(func.date(ActivitySession.start_time) <= end_date.isoformat())
+        active_stmt = active_stmt.where(func.date(ActivitySession.start_time) <= end_date)
+        idle_stmt = idle_stmt.where(func.date(ActivitySession.start_time) <= end_date)
 
     active_secs = (await db.execute(active_stmt)).scalar() or 0
     idle_secs = (await db.execute(idle_stmt)).scalar() or 0
@@ -130,9 +130,9 @@ async def get_overview(
         .limit(10)
     )
     if start_date is not None:
-        top_apps_stmt = top_apps_stmt.where(func.date(AppUsage.start_time) >= start_date.isoformat())
+        top_apps_stmt = top_apps_stmt.where(func.date(AppUsage.start_time) >= start_date)
     if end_date is not None:
-        top_apps_stmt = top_apps_stmt.where(func.date(AppUsage.start_time) <= end_date.isoformat())
+        top_apps_stmt = top_apps_stmt.where(func.date(AppUsage.start_time) <= end_date)
 
     app_rows = (await db.execute(top_apps_stmt)).all()
     top_apps = [
@@ -153,9 +153,9 @@ async def get_overview(
         .limit(10)
     )
     if start_date is not None:
-        top_domains_stmt = top_domains_stmt.where(func.date(UrlVisit.visit_time) >= start_date.isoformat())
+        top_domains_stmt = top_domains_stmt.where(func.date(UrlVisit.visit_time) >= start_date)
     if end_date is not None:
-        top_domains_stmt = top_domains_stmt.where(func.date(UrlVisit.visit_time) <= end_date.isoformat())
+        top_domains_stmt = top_domains_stmt.where(func.date(UrlVisit.visit_time) <= end_date)
 
     domain_rows = (await db.execute(top_domains_stmt)).all()
     top_domains = [
@@ -218,15 +218,15 @@ async def get_user_dashboard(
         ActivitySession.session_type.in_(["idle", "away", "locked"]),
     )
 
-    # Use func.date() for SQLite compatibility — stored timestamps may include
-    # timezone suffix (e.g. "2026-03-31T09:00:00+00:00") which breaks naive
-    # datetime string comparisons; DATE() strips time and tz correctly.
+    # Use func.date() so stored timestamps with timezone suffix get reduced
+    # to a DATE before comparison. Pass date objects (not isoformat strings)
+    # so the right-hand bind is DATE — PostgreSQL has no `date >= varchar`.
     if start_date is not None:
-        active_stmt = active_stmt.where(func.date(ActivitySession.start_time) >= start_date.isoformat())
-        idle_stmt = idle_stmt.where(func.date(ActivitySession.start_time) >= start_date.isoformat())
+        active_stmt = active_stmt.where(func.date(ActivitySession.start_time) >= start_date)
+        idle_stmt = idle_stmt.where(func.date(ActivitySession.start_time) >= start_date)
     if end_date is not None:
-        active_stmt = active_stmt.where(func.date(ActivitySession.start_time) <= end_date.isoformat())
-        idle_stmt = idle_stmt.where(func.date(ActivitySession.start_time) <= end_date.isoformat())
+        active_stmt = active_stmt.where(func.date(ActivitySession.start_time) <= end_date)
+        idle_stmt = idle_stmt.where(func.date(ActivitySession.start_time) <= end_date)
 
     active_secs = (await db.execute(active_stmt)).scalar() or 0
     idle_secs = (await db.execute(idle_stmt)).scalar() or 0
@@ -251,11 +251,11 @@ async def get_user_dashboard(
         ActivitySession.session_type == "active",
     )
     if start_date is not None:
-        first_activity_stmt = first_activity_stmt.where(func.date(ActivitySession.start_time) >= start_date.isoformat())
-        last_activity_stmt = last_activity_stmt.where(func.date(ActivitySession.start_time) >= start_date.isoformat())
+        first_activity_stmt = first_activity_stmt.where(func.date(ActivitySession.start_time) >= start_date)
+        last_activity_stmt = last_activity_stmt.where(func.date(ActivitySession.start_time) >= start_date)
     if end_date is not None:
-        first_activity_stmt = first_activity_stmt.where(func.date(ActivitySession.start_time) <= end_date.isoformat())
-        last_activity_stmt = last_activity_stmt.where(func.date(ActivitySession.start_time) <= end_date.isoformat())
+        first_activity_stmt = first_activity_stmt.where(func.date(ActivitySession.start_time) <= end_date)
+        last_activity_stmt = last_activity_stmt.where(func.date(ActivitySession.start_time) <= end_date)
 
     first_activity = (await db.execute(first_activity_stmt)).scalar()
     last_activity = (await db.execute(last_activity_stmt)).scalar()

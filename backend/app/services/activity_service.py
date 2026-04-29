@@ -97,10 +97,10 @@ def _apply_filters(
     # SQLAlchemy formats datetime parameters with space separator, breaking
     # naive >=/<= string comparisons. DATE() strips time/tz and works on both.
     if start_date is not None:
-        stmt = stmt.where(func.date(ActivitySession.start_time) >= start_date.isoformat())
+        stmt = stmt.where(func.date(ActivitySession.start_time) >= start_date)
 
     if end_date is not None:
-        stmt = stmt.where(func.date(ActivitySession.start_time) <= end_date.isoformat())
+        stmt = stmt.where(func.date(ActivitySession.start_time) <= end_date)
 
     if device_id is not None:
         stmt = stmt.where(ActivitySession.device_id == device_id)
